@@ -2,6 +2,10 @@ from django.contrib import admin
 
 from characters.models import Character, CharactersList
 
+admin.site.site_header = "Walking Dead admin"
+admin.site.site_title = "admin"
+admin.site.index_title = "Users & Tables"
+
 class CharacterInline(admin.TabularInline):
     model=Character
     extra=0
