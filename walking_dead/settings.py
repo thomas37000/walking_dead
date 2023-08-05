@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'django_filters',
     'corsheaders',
+    'drf_yasg',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
