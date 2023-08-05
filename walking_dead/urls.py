@@ -19,12 +19,15 @@ from django.urls import include, path
 from rest_framework import routers
 from characters.urls import routers as characters_router
 from characters.views import CharacterView, CharactersListView
+from users.views import UserView
 
 router = routers.DefaultRouter()
 router.register('characters', CharacterView)
 router.register('characters-list', CharactersListView)
+router.register('user',UserView, basename='user')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('', include(router.urls)),
 ]
