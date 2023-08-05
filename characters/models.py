@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from private_storage.fields import PrivateFileField
 
 
 def validate_image_size(value):
@@ -35,6 +36,8 @@ class Character(models.Model):
     age = models.IntegerField(null=True)
     is_alive = models.BooleanField()
     country = models.CharField(max_length=50, null=True)
+    image = models.FileField(upload_to='public', null=True)
+    private_image = PrivateFileField(upload_to='private', null=True)
     # membership = models.ManyToManyField(Membership, blank=True)
     # friends = models.ManyToManyField(Friend, blank=True)
     # enemies = models.ManyToManyField(Enemy, blank=True)

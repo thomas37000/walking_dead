@@ -5,3 +5,4 @@ django-filter
 django-cors-headers
 dj-rest-auth
 drf-yasg
+django-private-storage

@@ -14,8 +14,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path, re_path
+from django.conf.urls.static import static
 from rest_framework import routers, permissions
 from characters.urls import routers as characters_router
 from characters.views import CharacterView, CharactersListView
@@ -23,6 +25,8 @@ from users.views import UserView
 
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+
+import private_storage.urls
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -46,6 +50,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("dj-rest-auth/", include("dj_rest_auth.urls")),
     path("", include(router.urls)),
+    re_path("^private-media/", include(private_storage.urls)),
     # SWAGGER
     path(
         "swagger<format>/", schema_view.without_ui(cache_timeout=0), name="schema-json"
@@ -56,4 +61,6 @@ urlpatterns = [
         name="schema-swagger-ui",
     ),
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
